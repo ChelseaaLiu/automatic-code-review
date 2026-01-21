@@ -1,0 +1,16 @@
+name: Simple CI Echo
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  echo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Ubuntu Version
+        run: lsb_release -a || cat /etc/os-release
+      - name: Echo Hello
+        run: echo "Hello from GitHub Actions!"

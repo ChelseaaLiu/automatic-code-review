@@ -1,0 +1,21 @@
+name: Enforce develop → master
+
+on:
+  pull_request:
+    branches:
+      - master # 只監控 PR 合併到 master
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug PR base branch
+        run: echo "Base branch is ${{ github.event.pull_request.base.ref }}"
+      - name: Check PR source branch
+        if: github.event.pull_request.head.ref != 'develop' && github.event.pull_request.base.ref == 'master'
+        run: |
+          echo "❌ PR must come from 'develop' branch, but got '${{ github.event.pull_request.head.ref }}'"
+          exit 1
+      - name: Success
+        if: github.event.pull_request.head.ref == 'develop' || github.event.pull_request.base.ref != 'master'
+        run: echo "✅ PR source branch is develop or base branch is not master, ready to merge"
