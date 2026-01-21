@@ -6,7 +6,6 @@ def main():
     data = {"Name": ["Tom", "Jane", "Lucy"], "Score": [90, 85, 88]}
     df = pd.DataFrame(data)
     print("Student Scores:")
-    print(df)
 
 
 if __name__ == "__main__":
